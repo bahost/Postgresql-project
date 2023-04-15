@@ -25,13 +25,11 @@ insert into analysis.tmp_rfm_recency
 select 
 	a.user_id as user_id
 	, case
-		when row_number() over(order by b.last_order_dt asc) between count(a.user_id) over()/5 + 1 and count(a.user_id) over()/5 * 2 then 2
-		when row_number() over(order by b.last_order_dt asc) between count(a.user_id) over()/5 * 2 + 1 and count(a.user_id) over()/5 * 3 then 3    
-		when row_number() over(order by b.last_order_dt asc) between count(a.user_id) over()/5 * 3 + 1 and count(a.user_id) over()/5 * 4 then 4
-		when row_number() over(order by b.last_order_dt asc) between count(a.user_id) over()/5 * 4 + 1 and count(a.user_id) over()/5 * 5 then 5
+		when b.last_order_dt is not null then ntile(5) over(order by b.last_order_dt)
 		else 1
 	end as recency
 from uid as a
 left join uord as b
 	on a.user_id = b.user_id
 ;
+
