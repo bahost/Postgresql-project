@@ -24,10 +24,7 @@ group by user_id
 insert into analysis.tmp_rfm_recency 
 select 
 	a.user_id as user_id
-	, case
-		when b.last_order_dt is not null then ntile(5) over(order by b.last_order_dt)
-		else 1
-	end as recency
+	, ntile(5) over(order by b.last_order_dt) as recency
 from uid as a
 left join uord as b
 	on a.user_id = b.user_id
