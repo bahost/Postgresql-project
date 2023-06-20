@@ -9,15 +9,3 @@ join analysis.tmp_rfm_monetary_value as m
 join analysis.tmp_rfm_recency as r
 	on f.user_id = r.user_id
 ;
-
-0	3	4	1
-1	3	3	4
-2	3	5	2
-3	4	3	2
-4	3	3	4
-5	5	5	5
-6	3	5	1
-7	2	2	4
-8	1	3	1
-9	2	2	1
-
